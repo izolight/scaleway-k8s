@@ -11,6 +11,7 @@ terraform apply
 rm -rf ~/.ssh/known_hosts
 ssh-keyscan $(terraform output -json public_ip | jq -r '.value[0]') > ~/.ssh/known_hosts
 export ANSIBLE_HOST_KEY_CHECKING=false
+export public_ip=$(terraform output -json public_ip | jq -r '.value[0]')
 ```
 
 Ansible
