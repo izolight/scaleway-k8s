@@ -1,21 +1,25 @@
+Setup
+=========
+```
 git clone https://github.com/chmod666org/scaleway-k8s.git
 cd scaleway-k8s/terraform
-
+```
 Terraform
 =========
+```
 terraform apply
-
-cd ..
 rm -rf ~/.ssh/known_hosts
 ssh-keyscan $(terraform output -json public_ip | jq -r '.value[0]') > ~/.ssh/known_hosts
 export ANSIBLE_HOST_KEY_CHECKING=false
+```
 
 Ansible
 =======
-
 To install the k8s cluster run:
 
 ```
+cd ..
+
 ANSIBLE_HOST_KEY_CHECKING=false "scaleway_token=SCW_TOKEN scaleway_orga=SCW_ORGA basic_auth_user=MYUSER basic_auth_password=MYPASSWORD" ansible-playbook -i inventories/scaleway.inv k8s.yml
 ```
 
