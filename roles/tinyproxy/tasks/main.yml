@@ -1,6 +1,17 @@
 - name: Tinyproxy for Ubuntu server
   block:
 
+  - name: Add tinyproxy group 
+    group:
+      name: tinyproxy
+      state: present
+    
+   - name: Add tinyproxy user
+     user:
+      name: tinyproxy
+      state: present
+      group: tinyproxy
+    
   - name: Install tinyproxy on the proxy server
     apt:
       name: tinyproxy
@@ -11,10 +22,10 @@
       name: tinyproxy
       state: stopped
 
-  - name: Templating /etc/tinyproxy/tinyproxy.conf
+  - name: Templating /etc/tinyproxy.conf
     template:
       src: tinyproxy.conf.j2
-      dest: /etc/tinyproxy/tinyproxy.conf
+      dest: /etc/tinyproxy.conf
     notify: Reload tinyproxy
 
   - name: Ensure tinyproxy is running
