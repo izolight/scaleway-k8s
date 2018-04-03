@@ -18,6 +18,7 @@ resource "scaleway_server" "worker" {
   type   = "${var.worker_instance_type}"
   state  = "running"
   tags   = ["workers"]
+  enable_ipv6 = true
 
   volume {
     size_in_gb = 50
@@ -32,6 +33,7 @@ resource "scaleway_server" "master" {
   type   = "${var.master_instance_type}"
   state  = "running"
   tags   = ["masters"]
+  enable_ipv6 = true
 }
 
 resource "scaleway_server" "proxy0" {
@@ -42,6 +44,7 @@ resource "scaleway_server" "proxy0" {
   public_ip  = "${element(scaleway_ip.public_ip.*.ip, count.index)}"
   state  = "running"
   tags  = ["proxy","primary"]
+  enable_ipv6 = true
 }
 
 resource "scaleway_server" "proxy1" {
@@ -51,6 +54,7 @@ resource "scaleway_server" "proxy1" {
   type  = "${var.proxy_instance_type}"
   state  = "running"
   tags  = ["proxy","secondary"]
+  enable_ipv6 = true
 }
 
 output "worker_private_ips" {

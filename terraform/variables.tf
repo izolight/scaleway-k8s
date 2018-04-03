@@ -7,7 +7,7 @@ variable "architecture" {
 }
 
 variable "image" {
-  default = "Ubuntu Zesty"
+  default = "ubuntu_17.10"
 }
 
 variable "master_instance_type" {
